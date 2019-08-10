@@ -16,33 +16,29 @@ class BarangController extends Controller
     }
 
     function add(){
-        $barang = MGlobal::Get_Row_Empty('tb_master_barang');
+        $barang = MGlobal::Get_Row_Empty('tb_item');
         return view('form.frm_barang',compact('barang'));
     }
 
     function save(Request $req){
 
 
-        if($req->get('id')==""){
+        if($req->get('kd_item')==""){
         //menciptakan kode anggota
-        $newid = DB::select('SHOW TABLE STATUS LIKE "tb_master_barang"');
-        $kodebarang = "B".sprintf('%03d',$newid[0]->Auto_increment);
+        $newid = DB::select('SHOW TABLE STATUS LIKE "tb_item"');
+        $kd_item = "A".sprintf('%04d',$newid[0]->Auto_increment).date('mY');
 
         $barang = new MBarang([
-            'kode_barang' => $kodebarang,
-            'nama_barang' => $req->get('nama_barang'),
-            'deskripsi_barang' => $req->get('deskripsi_barang'),
-            'harga_satuan' => $req->get('harga_satuan'),
-            'stok' => $req->get('stok'),
+            'kd_item' => $req->get('kd_item'),
+            'nama_item' => $req->get('nama_item'),
+            'harga' => $req->get('harga'),
         ]);
         $barang->save();
         } else {
-            $barang = MBarang::where("id",$req->get('id'));
+            $barang = MBarang::where("kd_item",$req->get('kd_item'));
             $barang->update([
-                'nama_barang' => $req->get('nama_barang'),
-                'deskripsi_barang' => $req->get('deskripsi_barang'),
-                'harga_satuan' => $req->get('harga_satuan'),
-                'stok' => $req->get('stok'),
+                'nama_item' => $req->get('nama_item'),
+                'harga' => $req->get('harga'),
                 ]);
         }
        
@@ -51,12 +47,12 @@ class BarangController extends Controller
     }
 
    function edit($id){
-    $barang = MBarang::where("id",$id)->first();
+    $barang = MBarang::where("kd_item",$id)->first();
     return view('form.frm_barang',compact('barang'));
    }
 
     function hapus($id){
-        $barang = MBarang::where("id",$id);        
+        $barang = MBarang::where("kd_item",$id);        
         $barang->delete();
         return redirect('barang');
 

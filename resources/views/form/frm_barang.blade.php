@@ -26,29 +26,16 @@ Form Barang
                 <!-- Bidodata kategori -->
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="nama_barang" class="col-sm-2 control-label">Nama Barang</label>
+                        <label for="nama_item" class="col-sm-2 control-label">Nama Item</label>
                         <div class="col-sm-10">
-                            <input type="hidden" name="kd_kategori" value="{{ $barang['kode_barang'] }}">
-                            <input type="text" class="form-control" id="nama_barang" placeholder="Nama Barang" name="nama_barang" value="{{ $barang['nama_barang'] }}">
+                            <input type="hidden" name="kd_item" value="{{ $barang['kd_item'] }}">
+                            <input type="text" class="form-control" id="nama_item" placeholder="Nama Item" name="nama_item" value="{{ $barang['nama_item'] }}">
                         </div>
                     </div>    
-                
-                <div class="form-group">
-                        <label for="deskripsi_barang" class="col-sm-2 control-label">Deskripsi Barang</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="deskripsi_barang" placeholder="Deskripsi Barang" name="deskripsi_barang" value="{{ $barang['deskripsi_barang'] }}">
-                        </div>
-                </div>
                     <div class="form-group">
-                        <label for="harga_satuan" class="col-sm-2 control-label">Harga Satuan</label>
+                        <label for="harga" class="col-sm-2 control-label">Harga Satuan</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="harga_satuan" placeholder="harga_satuan" name="harga_satuan" value="{{ $barang['harga_satuan'] }}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="stok" class="col-sm-2 control-label">Stok</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="stok" placeholder="Stok" name="stok" value="{{ $barang['stok'] }}">
+                            <input type="text" class="form-control" id="harga" placeholder="harga" name="harga" value="{{ $barang['harga'] }}">
                         </div>
                     </div>
                 <!-- /.box-body -->

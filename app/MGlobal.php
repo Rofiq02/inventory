@@ -15,21 +15,11 @@ class MGlobal extends Model
         return $column;
     }
 
-    public static function Get_Barang($kode_barang){
-        $barang = DB::table('tb_master_barang')->where('kode_barang',$kode_barang)->first();
+    
+    public static function Get_Item($kd_item){
+        $barang = DB::table('tb_item')->where('kd_item',$kd_item)->first();
         if($barang!=""){
-            $nama = $barang->nama_barang;
-        } else{
-            $nama = "-";
-        }
-
-        return $nama;
-    }
-
-    public static function Get_Pelanggan($kode_pelanggan){
-        $pelanggan = DB::table('tb_master_pelanggan')->where('kode_pelanggan',$kode_pelanggan)->first();
-        if($pelanggan!=""){
-            $nama = $pelanggan->nama_pelanggan;
+            $nama = $barang->nama_item;
         } else{
             $nama = "-";
         }

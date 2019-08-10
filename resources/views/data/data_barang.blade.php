@@ -17,32 +17,22 @@ active
             <thead>
                 <tr>
                   <th>#</th>
-                  <th>Kode Barang</th>
-                  <th>Nama Barang</th>
-                  <th>Deskripsi</th>
-                  <th>Harga Satuan</th>
-                  <th>Stok</th>
-                  <th>Action</th>
+                  <th>Nama Item</th>
+                  <th>Harga</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($barang as $rsBarang)
-            <tr>
-                  <td>{{ $rsBarang->id }}
-                  <td>{{ $rsBarang->kode_barang }}</td>
-                  <td>{{ $rsBarang->nama_barang }}
-                  </td>
-                  <td>{{ $rsBarang->deskripsi_barang }}</td>
-                  <td>{{ $rsBarang->harga_satuan }}</td>
-                  <td>{{ $rsBarang->stok }}</td>
-
-                  <td>
-                        <a href="/barang/edit/{{ $rsBarang->id }}"><button type="button" class="btn bg-yellow btn-flat"><i class="fa fa-pencil"></i></button></a>
-                        <a href="/barang/hapus/{{ $rsBarang->id }}"><button type="button" class="btn bg-red btn-flat"><i class="fa fa-trash"></i></button></a>
+            @foreach($barang as $rsBarang)
+                <tr>
+                    <td>{{ $rsBarang->kd_item }}</td>
+                    <td>{{ $rsBarang->nama_item }}</td>              
+                    <td>Rp {{ $rsBarang->harga }}</td>
+                    <td>
+                        <a href="{{ url('barang/edit',$rsBarang->kd_item) }}"><button type="button" class="btn bg-yellow btn-flat"><i class="fa fa-pencil"></i></button></a>
+                        <a href="/barang/hapus/{{ $rsBarang->kd_item }}"><button type="button" class="btn bg-red btn-flat"><i class="fa fa-trash"></i></button></a>
                     </td>
-
                 </tr>
-                @endforeach
+             @endforeach
             </tbody>
         </table>
         </div>

@@ -34,39 +34,17 @@
     <!-- Optionally, you can add icons to the links -->
     <li class="@yield('ac-dash')"><a href="{{ url('#') }}"><i class="fa fa-dashboard "></i><span>Dashboard</span></a></li>
     <li class="treeview @yield('ac-Master')">
-      <a href="{{ url('pelanggan') }}"><i class="fa fa-book"></i> <span>Master</span>
+      <a href="{{ url('#') }}"><i class="fa fa-book"></i> <span>Master</span>
         <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
       </a>
       <ul class="treeview-menu">
-        <li><a href="{{ url('/user') }}">User</a></li>
-        <li><a href="{{ url('/pelanggan') }}">Pelanggan</a></li>
-        <li><a href="{{ url('/supplier') }}">Supllier</a></li>
+        <!-- <li><a href="{{ url('/user') }}">User</a></li> -->
+        <li><a href="{{ url('/pembelian') }}">Pembeli</a></li>
         <li><a href="{{ url('/barang') }}">Barang</a></li>
       </ul>
     </li>   
-    <li class="treeview @yield('ac-laporan')">
-      <a href="{{ url('#') }}"><i class="fa fa-users"></i> <span>Laporan</span>
-        <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-      </a>
-      <ul class="treeview-menu">
-        <li><a href="{{ url('#') }}">Mutasi Stock</a></li>
-      </ul>
-    </li>
-    <li class="treeview">
-      <a href="{{ url('#') }}"><i class="fa fa-user"></i> <span>Transaksi</span>
-        <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-      </a>
-      <ul class="treeview-menu">
-        <li><a href="{{ url('#') }}">Pembelian</a></li>
-        <li><a href="{{ url('#') }}">Penjualan</a></li>
-      </ul>
-    </li>    
     </ul>
   <!-- /.sidebar-menu -->
 </section>

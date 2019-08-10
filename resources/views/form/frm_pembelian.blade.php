@@ -1,84 +1,96 @@
 @extends('template')
 
 @section('judul')
-    Form Peminjaman
-@stop
-
-@section('ac-transaksi')
-active
+Form Pembelian
 @stop
 
 @section('content')
 
-<div class="box">
-    <div class="box-body">
-        <form id="frmPinjam" action="{{ url('trans/pembelian/save') }}" method="post">
-            @csrf
-            <div class="box-body">
+@if ($errors->any())
+  <div class="alert alert-danger alert-dismissible" role="alert">
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><em>
+  <ul>
+    @foreach ($errors->all() as $error)
+    <li>{{ $error }}</li>
+    @endforeach
+  </ul>
+</em>
+</div>
+@endif
+
+<form id="frmPembelian" class="form-horizontal" action="{{ url('pembelian/save') }}" method="post" enctype="multipart/form-data">
+    @csrf
+    <div class="row">
+        <div class="fForm col-md-12">
+            <div class="box">
+                <!-- Bidodata kategori -->
+                <div class="box-body">
                     <div class="form-group">
-                        <label for="nama_supplier" class="col-sm-2 control-label">Kode</label>
-                        <div class="col-sm-10">
-                            <input type="readonly" name="kd_kategori" value="{{ $pembelian['kode_pembelian'] }}">
-                        </div>
-                    </div>    
-                
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>          
-                                <input id="datepicker" type="text" class="form-control" id="tanggal_pembelian" placeholder="Tanggal Pembelian" name="tanggal_pembelian" value="{{ $pembelian['tanggal_pembelian'] }}">
+                            <div class="col-sm-10">
+                                <input type="hidden" class="form-control" placeholder="Kode Pembelian"  name="id" id="id" value="{{ $pembelian['id'] }}">
                             </div>
-                        </div>                        
-                    </div>
+                    </div>   
                     <div class="form-group">
-                        <label for="kode_pembelian" class="col-sm-2 control-label">Kode Supplier</label>
-                        <div class="col-sm-10">
-                            <select class="form-control" name="kode_pembelian" value="{{ $pembelian['id'] }}">
-                                <option value="">- Pilih Kode -</option>
-                                @foreach($pembelian as $rsPeng)
-                                <option {{ $pembelian['id']==$rsPeng['id'] ? 'selected' : "" }} value="{{ $rsPeng['id'] }}">{{ $rsPeng['kode_supplier'] }}</option>   
-                                @endforeach                             
-                            </select>
-                        </div>
+                        <label for="kode_pembelian" class="col-sm-2 control-label">Nama</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" placeholder="Nama"  name="nama" id="nama" value="{{ $pembelian['nama'] }}">
+                            </div>
+                    </div>      
+                    <div class="form-group">
+                        <label for="kd_item" class="col-sm-2 control-label">Item</label>
+                            <div class="col-sm-3">
+                                <select class="form-control" name="kd_item" onFocus="startCalc();" onBlur="stopCalc();" value="{{ $pembelian['kd_item'] }}">
+                                    <option value="">- Pilih Item -</option>
+                                    @foreach($supplier as $rsPeng)
+                                    <option {{ $pembelian['kd_item']==$rsPeng['kd_item'] ? 'selected' : "" }} value="{{ $rsPeng['kd_item'] }}">{{ $rsPeng['nama_item'] }}</option>   
+                                    @endforeach                             
+                                </select>
+                            </div>
                     </div>
                     <div class="form-group">
                         <label for="pengarang" class="col-sm-2 control-label">Harga</label>
-                        <div class="col-sm-10">
-            
-                        </div>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" onFocus="startCalc();" onBlur="stopCalc();" placeholder="Harga"  name="total_harga" id="total_harga" value="{{ $pembelian['harga'] }}">
+                            </div>
                     </div>
+                    <div class="form-group">
+                        <label for="pengarang" class="col-sm-2 control-label">Jumlah</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control"  placeholder="Jumlah"  name="jumlah" id="jumlah" value="{{ $pembelian['jumlah'] }}">
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pengarang" class="col-sm-2 control-label">Total Harga</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control"  placeholder="Total Harga"  name="total_harga" id="total_harga" value="{{ $pembelian['total_harga'] }}">
+                            </div>
+                    </div>
+               
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary pull-right">SAVE</button>
+                        </div>                   
                 </div>
-
-    <div class="box">
-        <div class="box-header">
-        <table id="example2" class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                  <th>Kode Barang</th>
-                  <th>Harga Satuan</th>
-                  <th>Jumlah</th>
-                  <th>Sub Total</th>
-                  <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($barang as $rsBarang)
-            <tr>
-                  <td>{{ $rsBarang->kode_barang }}</td>
-                  <td>{{ $rsBarang->harga_satuan }}
-                  </td>
-                  <td>{{ $rsBarang->jumlah }}</td>
-                  <td>{{ $rsBarang->where('harga_satuan')->sum('jumlah') }}</td>
-
-                  <td>
-                        <a href="/barang/edit/{{ $rsBarang->id }}"><button type="button" class="btn bg-yellow btn-flat"><i class="fa fa-pencil"></i></button></a>
-                        <a href="/barang/hapus/{{ $rsBarang->id }}"><button type="button" class="btn bg-red btn-flat"><i class="fa fa-trash"></i></button></a>
-                    </td>
-
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        </div>
+            </div>
+        </div>       
     </div>
+</form>
+
 @stop
+
+@section('script')
+<script>
+    function startCalc(){
+    		interval = setInterval("calc()",1);
+    }
+    function calc(){
+	    valueharga = document.frmPembelian.harga.value;
+	    valuejumlah = document.frmPembelian.jumlah.value;
+	    document.frmPembelian.total_harga.value = (valueharga) * (valuejumlah);
+	}
+    function stopCalc(){
+    	clearInterval(interval);
+    }
+</script>
+@stop
+
+
